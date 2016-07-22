@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Courseid:</strong>
+  <%= @course_mapping.courseID %>
+</p>
+
+<p>
+  <strong>Userid:</strong>
+  <%= @course_mapping.userID %>
+</p>
+
+<p>
+  <strong>Decision:</strong>
+  <%= @course_mapping.decision %>
+</p>
+
+<p>
+  <strong>Grade:</strong>
+  <%= @course_mapping.grade %>
+</p>
+
+<%= link_to 'Edit', edit_course_mapping_path(@course_mapping) %> |
+<%= link_to 'Back', course_mappings_path %>

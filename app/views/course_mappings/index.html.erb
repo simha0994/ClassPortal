@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Course Mappings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Courseid</th>
+      <th>Userid</th>
+      <th>Decision</th>
+      <th>Grade</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @course_mappings.each do |course_mapping| %>
+      <tr>
+        <td><%= course_mapping.courseID %></td>
+        <td><%= course_mapping.userID %></td>
+        <td><%= course_mapping.decision %></td>
+        <td><%= course_mapping.grade %></td>
+        <td><%= link_to 'Show', course_mapping %></td>
+        <td><%= link_to 'Edit', edit_course_mapping_path(course_mapping) %></td>
+        <td><%= link_to 'Destroy', course_mapping, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Course Mapping', new_course_mapping_path %>

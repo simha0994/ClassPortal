@@ -1,0 +1,37 @@
+<%= form_for(course_mapping) do |f| %>
+  <% if course_mapping.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(course_mapping.errors.count, "error") %> prohibited this course_mapping from being saved:</h2>
+
+      <ul>
+      <% course_mapping.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :courseID %>
+    <%= f.number_field :courseID %>
+  </div>
+
+  <div class="field">
+    <%= f.label :userID %>
+    <%= f.number_field :userID %>
+  </div>
+
+  <div class="field">
+    <%= f.label :decision %>
+    <%= f.text_field :decision %>
+  </div>
+
+  <div class="field">
+    <%= f.label :grade %>
+    <%= f.text_field :grade %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
