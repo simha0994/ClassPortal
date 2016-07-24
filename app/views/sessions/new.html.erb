@@ -9,13 +9,9 @@
 	<fieldset>
 		<legend> Please log in </legend>
 		<div>
-			<%= label_tag :email, 'Email' %>
-			<%= text_field_tag :email, params[:email] %>
-			<%= label_tag :usertype, 'Usertype' %>
-			<%= radio_button_tag :usertype, "Student" %>Student
-			<%= radio_button_tag :usertype, "Instructor" %>Instructor
-			<%= radio_button_tag :usertype, "Admin" %>Admin
-			<%= label_tag :password, 'Password' %>
+			<%= label_tag :name, 'Name' %>
+			<%= text_field_tag :name, params[:name] %>
+			<%= label_tag :password, 'password' %>
 			<%= password_field_tag :password, params[:password] %>
 		</div>
 		<div>

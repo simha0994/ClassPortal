@@ -61,11 +61,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def current_user_home
-    redirect_to current_user
-    #Change this to user id page##########################################################################################
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -74,6 +69,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :usertype, :password, :password_confirmation)
+      params.require(:user).permit(:name, :password, :password_confirmation)
     end
 end
