@@ -16,8 +16,8 @@
   <tbody>
     <% @course_mappings.each do |course_mapping| %>
       <tr>
-        <td><%= course_mapping.courseID %></td>
-        <td><%= course_mapping.userID %></td>
+        <td><%= course_mapping.course_id %></td>
+        <td><%= course_mapping.user_id %></td>
         <td><%= course_mapping.decision %></td>
         <td><%= course_mapping.grade %></td>
         <td><%= link_to 'Show', course_mapping %></td>

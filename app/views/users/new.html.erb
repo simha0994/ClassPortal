@@ -2,4 +2,8 @@
 
 <%= render 'form', user: @user %>
 
-<%= link_to 'Back', login_url %>
+<%if session[:id].nil? %>
+<%= link_to 'BACK', login_url %>
+<% else %>
+<%= link_to 'LOGOUT', {:controller =>'sessions', :action => 'destroy'} %>
+<% end %>

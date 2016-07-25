@@ -29,10 +29,13 @@
         <td><%= link_to 'Show', course %></td>
         <% if current_user.usertype == "Student" %>
         <td><%= link_to 'Enroll', {:controller =>'course_mappings', :action => 'enroll', :id => course.id} %></td>
-        <% else %>
+        <% elsif current_user.usertype == "Instructor"%>
+        <td><%= link_to 'Requests', {:controller =>'course_mappings', :action => 'show_requests', :id => course.id} %></td>
+        <td><%= link_to 'Enrolled Students', {:controller =>'courses', :action => 'show_enrolled_students', :id => course.id} %></td>
         <td><%= link_to 'Edit', edit_course_path(course) %></td>
         <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
+        <td><%= link_to 'Materials', {:controller =>'materials', :action => 'show', :id => course.id} %></td>
       </tr>
     <% end %>
   </tbody>

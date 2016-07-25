@@ -19,6 +19,10 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    unless params[:id].to_i == current_user.id or current_user.usertype == "Admin"
+      flash[:notice] = "You do not have permission to access details"
+      redirect_to :back
+    end
   end
 
   # POST /users
@@ -61,6 +65,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def current_user_home
+    redirect_to current_user
+    #Change this to user id page##########################################################################################
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -69,6 +78,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :usertype, :password, :password_confirmation)
     end
 end

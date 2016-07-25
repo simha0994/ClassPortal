@@ -63,7 +63,13 @@ class CoursesController < ApplicationController
     end
   end
 
-
+  def show_enrolled_students
+    @course = Course.find(params[:id])
+    @users = @course.course_mappings
+    @student_users = @users.select {|user| user.decision == "Accepted"}.map{|user| user.user_id}
+    @students = @course.users.select {|user| @student_users.include?(user.id)}
+    return @students, @course
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

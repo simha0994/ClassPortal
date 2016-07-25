@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  	<% @users.each do |user| %>
+  		<tr>
+  			<td><%= user.name %></td>
+  			<td><%= user.email %></td>
+        <td><%= link_to 'Accept', {:controller =>'course_mappings', :action => 'accept_requests', :user => user, :course => @course}%></td>
+        <td><%= link_to 'Reject', {:controller =>'course_mappings', :action => 'reject_requests', :user => user, :course => @course}%></td>
+  		</tr>
+  	<% end %>
+    
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'Home', {:controller =>'users', :action => 'current_user_home'} %>

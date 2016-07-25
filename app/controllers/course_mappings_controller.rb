@@ -64,7 +64,18 @@ class CourseMappingsController < ApplicationController
   def enroll
     @course = Course.find(params[:id])
     if current_user.courses.include?(@course)
-      flash[:notice] = "Already Requested"
+      #if current_user.courses.include?()
+      #@course_mapping = CourseMapping.find_by_user_id_and_course_id(current_user.id, @course)
+#######################Add if statement for checking the decision whether it is requested or removed#################
+      @cur_courses = current_user.course_mappings.where(:course_id => params[:id]).select(:decision)#inspect
+      #render plain: @cur_courses#.course_mappings.decision
+      if @cur_courses == "Removed" || @cur_courses == "Rejected"
+        current_user.course_mappings.update(decision: "Requested")
+        flash[:notice] = "Request sent to the instructor"
+      else
+        flash[:notice] = "Already Requested"
+        #current_user.course_mappings.decision = "Requested"
+      end
     else
       current_user.course_mappings.create(course: @course, decision: "Requested")
       flash[:notice] = "Request sent to the instructor"
@@ -73,7 +84,69 @@ class CourseMappingsController < ApplicationController
   end
 
   def show_courses
-    
+    @show_courses = current_user.courses
+    @course_mappings = current_user.course_mappings
+    return @show_courses, @course_mappings
+  end
+
+  def show_requests
+    @course = Course.find(params[:id])
+    @requests = @course.course_mappings
+    @request_users = @requests.select {|request| request.decision == "Requested"}.map{|request| request.user_id}
+    @users = @course.users.select {|user| @request_users.include?(user.id)}
+    return @users, @course
+  end
+
+  def accept_requests
+    @course_mapping = CourseMapping.find_by_user_id_and_course_id(params[:user], params[:course])
+    @course_mapping.decision = "Accepted"
+    if @course_mapping.save
+      flash[:notice] = "Student is enrolled into the course"
+      redirect_to :back
+    else
+      render plain:"There were errors while saving the record"
+    end 
+  end
+
+  def reject_requests
+    @course_mapping = CourseMapping.find_by_user_id_and_course_id(params[:user], params[:course])
+    @course_mapping.decision = "Rejected"
+    if @course_mapping.save
+      flash[:notice] = "Student is rejected to enroll into the course"
+      redirect_to :back
+    else
+      render plain:"There were errors while saving the record"
+    end 
+  end
+
+  def show_enrolled_students
+    @course = Course.find(params[:id])
+    @users = @course.course_mappings
+    @student_users = @users.select {|user| user.decision == "Accepted"}.map{|user| user.user_id}
+    @students = @course.users.select {|user| @student_users.include?(user.id)}
+    return @students, @course
+  end
+
+  def remove_students
+    @course_mapping = CourseMapping.find_by_user_id_and_course_id(params[:user], params[:course])
+    @course_mapping.decision = "Removed"
+    if @course_mapping.save
+      flash[:notice] = "Student is removed from the course"
+      redirect_to :back
+    else
+      render plain:"There were errors while saving the record"
+    end 
+  end
+
+  def grades
+    @course_mapping = CourseMapping.find_by_user_id_and_course_id(params[:course_mapping][:user_id], params[:course_mapping][:course_id])
+    @course_mapping.grade = params[:course_mapping][:grade]
+    if @course_mapping.save
+      flash[:notice] = "Grade is posted"
+      redirect_to :back
+    else
+      render plain:"There were errors while saving the record"
+    end 
   end
 
   private

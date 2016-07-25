@@ -10,13 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720043654) do
+ActiveRecord::Schema.define(version: 20160724053800) do
+
+  create_table "course_mappings", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "user_id"
+    t.string   "decision"
+    t.string   "grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "number"
+    t.string   "title"
+    t.text     "description"
+    t.string   "instructor"
+    t.string   "status"
+    t.date     "startdate"
+    t.date     "enddate"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "materials", force: :cascade do |t|
+    t.integer  "course_id"
+    t.text     "information"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
+    t.string   "email"
+    t.string   "usertype"
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "name"
   end
 
 end

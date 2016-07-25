@@ -1,10 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @user.name %>
+  <strong>Email:</strong>
+  <%= @user.email %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p>
+  <strong>Usertype:</strong>
+  <%= @user.usertype %>
+</p>
+
+<%if @user.usertype == "Instructor" or @user.usertype == "Admin" %>
+<%= link_to 'Add New Course', new_course_path %>
+<%= link_to 'Show courses', courses_path %>
+<% elsif @user.usertype == "Student" %>
+<%= link_to 'Show courses', {:controller =>'course_mappings', :action => 'show_courses'} %>
+<%end%></br>
+</br>
+<%= link_to 'Edit', edit_user_path(@user) %> </br>
+</br>
+</br>
 <%= link_to 'LOGOUT', {:controller =>'sessions', :action => 'destroy'} %>
