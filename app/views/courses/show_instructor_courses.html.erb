@@ -4,29 +4,30 @@
   <thead>
     <tr>
       <th>Course</th>
-      <% if current_user.usertype == "Student" %>
-      <th>Decision</th>
-      <th>Grade</th>
-      <% end %>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-  	<% @show_courses.zip(@course_mappings).each do |course, course_mapping| %>
+  	<% @courses.each do |course| %>
   		<tr>
   			<td><%= course.title %></td>
         <%if current_user.usertype == "Instructor" or current_user.usertype == "Admin" %>
+       
+        <td><%= link_to 'Requests', {:controller =>'course_mappings', :action => 'show_requests', :id => course.id} %></td>
+        <td><%= link_to 'Enrolled Students', {:controller =>'courses', :action => 'show_enrolled_students', :id => course.id} %></td>
         
-        <% elsif current_user.usertype == "Student" %>
-        <td><%= course_mapping.decision %></td>
-        <td><%= course_mapping.grade %></td>
         <td><%= link_to 'Materials', {:controller =>'materials', :action => 'show', :id => course.id} %></td>
-        <%end%></br>
+        <%end%>
+        </br>
   		</tr>
   	<% end %>
   </tbody>
 </table>
-
 <br>
+<% if current_user.usertype == "Admin" %>
+ <%= link_to 'Add New Course', new_course_path %>
+ <% end %>       
+<br>
+
 <%= link_to 'BACK', {:controller =>'users', :action => 'current_user_home'} %>

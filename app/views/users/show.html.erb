@@ -10,7 +10,9 @@
   <%= @user.usertype %>
 </p>
 
-<%if @user.usertype == "Instructor" or @user.usertype == "Admin" %>
+<%if @user.usertype == "Instructor" %>
+<%= link_to 'Show courses', {:controller => 'courses', :action => 'show_instructor_courses'} %>
+<%elsif @user.usertype == "Admin" %>
 <%= link_to 'Add New Course', new_course_path %>
 <%= link_to 'Show courses', courses_path %>
 <% elsif @user.usertype == "Student" %>

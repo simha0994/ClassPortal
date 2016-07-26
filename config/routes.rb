@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :courses do
     collection do
       #get 'show_enrolled_students' => :show_enrolled_students
+      get 'show_instructor_courses' => :show_instructor_courses
     end
     member do
       get 'show_enrolled_students' => :show_enrolled_students

@@ -29,7 +29,7 @@
   <div class="field">
     <%= f.label :instructor %>
     <% if @users != nil %>
-    <%= f.select :instructor , @users.map { |user| [user.email] } %>
+    <%= f.select :instructor , @users.map { |user| [user.name] } %>
     <% end %>
   </div>
 

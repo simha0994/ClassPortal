@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-
+  #before_action :is_admin_logged_in, [:destroy]
   # GET /courses
   # GET /courses.json
   def index
@@ -69,6 +69,10 @@ class CoursesController < ApplicationController
     @student_users = @users.select {|user| user.decision == "Accepted"}.map{|user| user.user_id}
     @students = @course.users.select {|user| @student_users.include?(user.id)}
     return @students, @course
+  end
+
+  def show_instructor_courses
+    @courses = Course.find_by_sql("select * from courses where instructor= '#{current_user.name}'")
   end
 
   private
